@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stream Video DoodStream</title>
+  <title>Make Bayi Indo</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -32,7 +32,6 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      background-color: rgba(0, 0, 0, 0.7);
       padding: 10px 20px;
       border-radius: 8px;
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -150,30 +149,37 @@
   </style>
 </head>
 <body>
+  <!-- Header dengan logo dan nama -->
   <div class="header">
     <img src="https://via.placeholder.com/40" alt="Logo" id="logo">
-    <h1>StreamNow</h1>
+    <h1>MakeBayi</h1>
   </div>
 
   <div class="container">
-    <h1 class="main-title">Stream Video from DoodStream</h1>
     <div class="video-list">
+      <!-- Tambahkan daftar video di sini -->
       <div class="video-item" data-src="https://dood.work/e/am5874qhqf30" data-title="Judul Video 1">
-        <img src="https://img.doodcdn.co/splash/abc123.jpg" alt="Video 1">
+        <img src="https://img.doodcdn.co/splash/3e0g3mw64v22xd35.jpg" alt="Video 1">
         <div class="play-icon"></div>
         <p class="video-title">Judul Video 1</p>
       </div>
-      <div class="video-item" data-src="https://dood.ws/e/def456" data-title="Judul Video 2">
-        <img src="https://img.doodcdn.co/splash/def456.jpg" alt="Video 2">
+      <div class="video-item" data-src="https://dood.ws/e/VIDEO_ID2" data-title="Judul Video 2">
+        <img src="https://img.doodcdn.co/splash/VIDEO_ID2.jpg" alt="Video 2">
         <div class="play-icon"></div>
         <p class="video-title">Judul Video 2</p>
+      </div>
+      <div class="video-item" data-src="https://dood.ws/e/VIDEO_ID3" data-title="Judul Video 3">
+        <img src="https://img.doodcdn.co/splash/VIDEO_ID3.jpg" alt="Video 3">
+        <div class="play-icon"></div>
+        <p class="video-title">Judul Video 3</p>
       </div>
     </div>
   </div>
 
+  <!-- Modal -->
   <div class="modal" id="video-modal">
     <button class="close-btn" id="close-modal">&times;</button>
-    <iframe id="video-frame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+    <iframe id="video-frame" src="" allowfullscreen></iframe>
   </div>
 
   <script>

@@ -1,220 +1,249 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Make Bayi Indo</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #121212;
-      color: #fff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-height: 100vh;
-    }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bikin Bayi Sytes Net</title>
+    <link href="Bassy.ttf" rel="stylesheet">
+    <style>
+        @font-face {
+    font-family: 'SexyFont';
+    src: url('Bassy.ttf') format('truetype'); /* Ganti dengan format font Anda */
+          
+        }
+        /* Reset Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-    .container {
-      text-align: center;
-      max-width: 1200px;
-      margin: auto;
-      padding: 20px;
-    }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1e1e2f;
+            color: #fff;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        body h1 {
+          font-family: 'SexyFont', cursive;
+        }
+        
+        header, footer {
+            background-color: #2c2c3a;
+            color: #fff;
+            text-align: center;
+            padding: 1rem;
+            position: sticky;
+            z-index: 1000;
+        }
 
-    .header {
-      position: fixed;
-      top: 10px;
-      left: 10px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      padding: 10px 20px;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      z-index: 1000;
-    }
+        header {
+            top: 0;
+        }
 
-    .header img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-    }
+        footer {
+            bottom: 0;
+        }
 
-    .header h1 {
-      font-size: 18px;
-      color: #fff;
-      margin: 0;
-    }
+        .container {
+            max-width: 900px;
+            margin: 4rem auto; /* Tambahkan jarak untuk menghindari overlap header */
+            padding: 1rem;
+        }
 
-    h1.main-title {
-      margin-top: 80px; /* Offset untuk header */
-    }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
 
-    .video-list {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 15px;
-    }
+        .video-card {
+            width: 48%;
+            position: relative;
+            margin-bottom: 1rem;
+        }
 
-    .video-item {
-      position: relative;
-      text-align: center;
-      cursor: pointer;
-    }
+        .video-card img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
 
-    .video-item img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-      object-fit: cover;
-      transition: transform 0.3s ease;
-    }
+        .video-card img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+        }
 
-    .video-item img:hover {
-      transform: scale(1.05);
-    }
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.6);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
 
-    .play-icon {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 50px;
-      height: 50px;
-      background: rgba(0, 0, 0, 0.6);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+        .play-button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
 
-    .play-icon::after {
-      content: '';
-      display: block;
-      width: 0;
-      height: 0;
-      border-style: solid;
-      border-width: 12px 0 12px 18px;
-      border-color: transparent transparent transparent #fff;
-    }
+        .play-button::before {
+            content: '';
+            display: inline-block;
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 10px 0 10px 20px;
+            border-color: transparent transparent transparent white;
+            margin-left: 5px;
+        }
 
-    .video-title {
-      margin-top: 10px;
-      font-size: 16px;
-      color: #ccc;
-      text-align: center;
-      line-height: 1.4;
-    }
+        .video-title {
+            margin-top: 0.5rem;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
 
-    /* Modal */
-    .modal {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.8);
-      display: none;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
+        /* Popup Styles */
+        .popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
 
-    .modal iframe {
-      width: 80%;
-      height: 45%;
-      border-radius: 8px;
-      border: none;
-    }
+        .popup {
+            background: #2c2c3a;
+            padding: 1.5rem;
+            border-radius: 12px;
+            position: relative;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
 
-    .close-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      font-size: 24px;
-      color: #fff;
-      background: none;
-      border: none;
-      cursor: pointer;
-    }
+        .popup iframe {
+            width: 100%;
+            height: 400px;
+            border: none;
+            border-radius: 8px;
+        }
 
-    .close-btn:hover {
-      color: #ff0000;
-    }
-  </style>
+        .popup-close {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            background: #ff5c5c;
+            border: none;
+            color: white;
+            font-size: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .popup-close:hover {
+            background: #ff2c2c;
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .video-card {
+                width: 100%;
+            }
+
+            .popup iframe {
+                height: 300px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <!-- Header dengan logo dan nama -->
-  <div class="header">
-    <img src="https://via.placeholder.com/40" alt="Logo" id="logo">
-    <h1>MakeBayi</h1>
-  </div>
-
-  <div class="container">
-    <div class="video-list">
-      <!-- Tambahkan daftar video di sini -->
-      <div class="video-item" data-src="https://dood.work/e/am5874qhqf30" data-title="Judul Video 1">
-        <img src="https://img.doodcdn.co/splash/3e0g3mw64v22xd35.jpg" alt="Video 1">
-        <div class="play-icon"></div>
-        <p class="video-title">Judul Video 1</p>
-      </div>
-      <div class="video-item" data-src="https://dood.ws/e/VIDEO_ID2" data-title="Judul Video 2">
-        <img src="https://img.doodcdn.co/splash/VIDEO_ID2.jpg" alt="Video 2">
-        <div class="play-icon"></div>
-        <p class="video-title">Judul Video 2</p>
-      </div>
-      <div class="video-item" data-src="https://dood.ws/e/VIDEO_ID3" data-title="Judul Video 3">
-        <img src="https://img.doodcdn.co/splash/VIDEO_ID3.jpg" alt="Video 3">
-        <div class="play-icon"></div>
-        <p class="video-title">Judul Video 3</p>
-      </div>
+    <header>
+        <h1>Bikin Bayi Sytes net</h1>
+    </header>
+    <div class="container">
+        <!-- Row 1 -->
+        <div class="row">
+            <div class="video-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ7aKbdiqTHEs_RHfGjzqK0he5c8ZanImBYbYidZd2LelZ7mg1uBnnsAo4&s=10" alt="jilbab" onclick="showPopup('https://dood.yt/e/abc123')">
+                <div class="play-button" onclick="showPopup('https://dood.yt/e/abc123')"></div>
+                <p class="video-title">Janda Pirang</p>
+            </div>
+            <div class="video-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfwh-qhkUc3hk9xhLOgEBx3L4TiQILX-ANQ-8ByZFpyR-SviEcc2CrS6Fk&s=10" alt="Thumbnail Video 2" onclick="showPopup('https://dood.work/e/am5874qhqf30')">
+                <div class="play-button" onclick="showPopup('https://dood.work/e/am5874qhqf30')"></div>
+                <p class="video-title">tobrut racing</p>
+            </div>
+        </div>
+        <!-- Row 2 -->
+        <div class="row">
+            <div class="video-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIdiqEVhytx2au6_uT75bd2-5KgX3tKwb7tA&usqp=CAU" alt="Thumbnail Video 3" onclick="showPopup('https://dood.yt/e/newvideo')">
+                <div class="play-button" onclick="showPopup('https://dood.work/e/am5874qhqf30')"></div>
+                <p class="video-title">Viral terbaru</p>
+            </div>
+            <div class="video-card">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTtfVk5pu7bEssS2Naw0cFhohKYXmf5OBpZJA&usqp=CAU" alt="Thumbnail Video 4" onclick="showPopup('https://dood.yt/e/anothervideo')">
+                <div class="play-button" onclick="showPopup('https://dood.work/e/am5874qhqf30')"></div>
+                <p class="video-title">skuyin gasi</p>
+            </div>
+        </div>
     </div>
-  </div>
+    <footer>
+        <p>&copy; 2024 Bikin Bayi Sytes. All rights reserved.</p>
+    </footer>
 
-  <!-- Modal -->
-  <div class="modal" id="video-modal">
-    <button class="close-btn" id="close-modal">&times;</button>
-    <iframe id="video-frame" src="" allowfullscreen></iframe>
-  </div>
+    <!-- Popup -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup">
+            <button class="popup-close" onclick="closePopup()">×</button>
+            <iframe id="popupIframe" src="" allowfullscreen></iframe>
+        </div>
+    </div>
 
-  <script>
-    // Ambil elemen DOM
-    const videoItems = document.querySelectorAll(".video-item");
-    const modal = document.getElementById("video-modal");
-    const iframe = document.getElementById("video-frame");
-    const closeModal = document.getElementById("close-modal");
+    <script>
+        // Function to show popup
+        function showPopup(videoUrl) {
+            const overlay = document.getElementById('popupOverlay');
+            const iframe = document.getElementById('popupIframe');
+            iframe.src = videoUrl;
+            overlay.style.display = 'flex';
+        }
 
-    // Tambahkan event listener untuk setiap thumbnail
-    videoItems.forEach(item => {
-      item.addEventListener("click", () => {
-        const videoSrc = item.getAttribute("data-src"); // Ambil URL video
-        const videoTitle = item.getAttribute("data-title"); // Ambil judul video
-        iframe.src = videoSrc; // Set src iframe
-        modal.style.display = "flex"; // Tampilkan modal
-        document.title = videoTitle; // Ubah judul halaman
-      });
-    });
-
-    // Tutup modal
-    closeModal.addEventListener("click", () => {
-      modal.style.display = "none"; // Sembunyikan modal
-      iframe.src = ""; // Hentikan video
-      document.title = "Stream Video DoodStream"; // Kembalikan judul halaman
-    });
-
-    // Tutup modal saat klik di luar iframe
-    modal.addEventListener("click", (e) => {
-      if (e.target === modal) {
-        modal.style.display = "none";
-        iframe.src = "";
-        document.title = "Stream Video DoodStream";
-      }
-    });
-  </script>
+        // Function to close popup
+        function closePopup() {
+            const overlay = document.getElementById('popupOverlay');
+            const iframe = document.getElementById('popupIframe');
+            iframe.src = ''; // Stop video playback
+            overlay.style.display = 'none';
+        }
+    </script>
 </body>
 </html>

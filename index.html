@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stream Video DoodStream</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #121212;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 1200px;
+      margin: auto;
+      padding: 20px;
+    }
+
+    .header {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background-color: rgba(0, 0, 0, 0.7);
+      padding: 10px 20px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      z-index: 1000;
+    }
+
+    .header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .header h1 {
+      font-size: 18px;
+      color: #fff;
+      margin: 0;
+    }
+
+    h1.main-title {
+      margin-top: 80px; /* Offset untuk header */
+    }
+
+    .video-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 15px;
+    }
+
+    .video-item {
+      position: relative;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    .video-item img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .video-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .play-icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 50px;
+      height: 50px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-icon::after {
+      content: '';
+      display: block;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 12px 0 12px 18px;
+      border-color: transparent transparent transparent #fff;
+    }
+
+    .video-title {
+      margin-top: 10px;
+      font-size: 16px;
+      color: #ccc;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* Modal */
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal iframe {
+      width: 80%;
+      height: 45%;
+      border-radius: 8px;
+      border: none;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 24px;
+      color: #fff;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      color: #ff0000;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <img src="https://via.placeholder.com/40" alt="Logo" id="logo">
+    <h1>StreamNow</h1>
+  </div>
+
+  <div class="container">
+    <h1 class="main-title">Stream Video from DoodStream</h1>
+    <div class="video-list">
+      <div class="video-item" data-src="https://dood.work/e/am5874qhqf30" data-title="Judul Video 1">
+        <img src="https://img.doodcdn.co/splash/abc123.jpg" alt="Video 1">
+        <div class="play-icon"></div>
+        <p class="video-title">Judul Video 1</p>
+      </div>
+      <div class="video-item" data-src="https://dood.ws/e/def456" data-title="Judul Video 2">
+        <img src="https://img.doodcdn.co/splash/def456.jpg" alt="Video 2">
+        <div class="play-icon"></div>
+        <p class="video-title">Judul Video 2</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="video-modal">
+    <button class="close-btn" id="close-modal">&times;</button>
+    <iframe id="video-frame" src="" allow="autoplay; fullscreen" allowfullscreen></iframe>
+  </div>
+
+  <script>
+    // Ambil elemen DOM
+    const videoItems = document.querySelectorAll(".video-item");
+    const modal = document.getElementById("video-modal");
+    const iframe = document.getElementById("video-frame");
+    const closeModal = document.getElementById("close-modal");
+
+    // Tambahkan event listener untuk setiap thumbnail
+    videoItems.forEach(item => {
+      item.addEventListener("click", () => {
+        const videoSrc = item.getAttribute("data-src"); // Ambil URL video
+        const videoTitle = item.getAttribute("data-title"); // Ambil judul video
+        iframe.src = videoSrc; // Set src iframe
+        modal.style.display = "flex"; // Tampilkan modal
+        document.title = videoTitle; // Ubah judul halaman
+      });
+    });
+
+    // Tutup modal
+    closeModal.addEventListener("click", () => {
+      modal.style.display = "none"; // Sembunyikan modal
+      iframe.src = ""; // Hentikan video
+      document.title = "Stream Video DoodStream"; // Kembalikan judul halaman
+    });
+
+    // Tutup modal saat klik di luar iframe
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) {
+        modal.style.display = "none";
+        iframe.src = "";
+        document.title = "Stream Video DoodStream";
+      }
+    });
+  </script>
+</body>
+</html>
